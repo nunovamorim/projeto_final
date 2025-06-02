@@ -1,0 +1,33 @@
+Instalação de QEMU + POSIX
+
+#1. Script de compilação
+    #!/bin/bash
+
+    echo "Compilando teste POSIX..."
+    gcc -Wall -Wextra test_posix_support.c -o test_posix_support -pthread
+
+    if [ $? -eq 0 ]; then
+        echo -e "\nCompilação bem sucedida! Executando teste...\n"
+        ./test_posix_support
+    else
+        echo "Erro na compilação!"
+        exit 1
+    fi
+
+#2. Permissão de execução ao script
+    chmod +x compile_test.sh
+
+#3. Script de execução
+    ./compile_test.sh
+
+#4. Mensagem de sucesso
+    Compilando teste POSIX...
+    Compilação bem sucedida. Executando teste...
+    Iniciando testes de suporte POSIX...
+
+    ✓ Suporte a threads POSIX: OK
+    Thread POSIX executando...
+    ✓ Suporte a temporizadores POSIX: OK
+    ✓ Suporte a semáforos POSIX: OK
+
+    Todos os testes POSIX concluídos com sucesso!
