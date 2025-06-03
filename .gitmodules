@@ -1,0 +1,3 @@
+[submodule "satellite/freertos"]
+	path = satellite/freertos
+	url = https://github.com/nunovamorim/projeto_final.git

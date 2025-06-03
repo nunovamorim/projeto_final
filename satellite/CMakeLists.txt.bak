@@ -1,0 +1,94 @@
+cmake_minimum_required(VERSION 3.10)
+project(satellite_rtos C)
+
+# Set C standard
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# Set the FreeRTOS source directory
+set(FREERTOS_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
+set(FREERTOS_SOURCE_DIR "${FREERTOS_ROOT_DIR}/FreeRTOS/Source")
+
+# Verify FreeRTOS Source directory exists
+if(NOT EXISTS ${FREERTOS_SOURCE_DIR})
+    message(FATAL_ERROR "FreeRTOS Source not found at: ${FREERTOS_SOURCE_DIR}")
+endif()
+
+# Add threading support
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+# Include necessary directories
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${FREERTOS_SOURCE_DIR}/include
+    ${FREERTOS_SOURCE_DIR}/portable/ThirdParty/GCC/Posix
+    ${FREERTOS_SOURCE_DIR}/portable/ThirdParty/GCC/Posix/utils
+)
+
+# FreeRTOS source files
+set(FREERTOS_SRC
+    ${FREERTOS_SOURCE_DIR}/tasks.c
+    ${FREERTOS_SOURCE_DIR}/list.c
+    ${FREERTOS_SOURCE_DIR}/queue.c
+    ${FREERTOS_SOURCE_DIR}/timers.c
+    ${FREERTOS_SOURCE_DIR}/stream_buffer.c
+    ${FREERTOS_SOURCE_DIR}/event_groups.c
+    ${FREERTOS_SOURCE_DIR}/portable/ThirdParty/GCC/Posix/port.c
+    ${FREERTOS_SOURCE_DIR}/portable/MemMang/heap_3.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/run-time-stats-utils.c
+)
+
+# Resource constraints for embedded simulation
+add_definitions(
+    -DCONFIG_TOTAL_HEAP_SIZE=65536          # 64KB heap limit
+    -DCONFIG_MINIMAL_STACK_SIZE=256         # 256 bytes minimal stack
+    -DCONFIG_MAX_TASK_COUNT=8               # Stricter task limit for embedded sim
+    -DCONFIG_TICK_RATE_HZ=1000             # 1KHz tick rate
+    -DCONFIG_CPU_CLOCK_HZ=20000000         # 20MHz simulated CPU clock
+    -DCONFIG_USE_TRACE_FACILITY=1          # Enable trace for debugging
+    -DCONFIG_GENERATE_RUN_TIME_STATS=1     # Enable runtime statistics
+)
+
+# Basic compiler flags
+add_compile_options(
+    -Wall 
+    -Wextra 
+    -Werror
+    -D_POSIX_C_SOURCE=200809L
+    -DCONFIG_FREERTOS_POSIX
+    -ffunction-sections      # Place each function in its own section
+    -fdata-sections         # Place each data item in its own section
+    -fno-strict-aliasing    # Prevent undefined behavior with pointer aliasing
+)
+
+# Debug and optimization flags
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_options(-g -O0)
+else()
+    add_compile_options(-O2)
+endif()
+
+# Add executable target
+add_executable(satellite_rtos
+    ${FREERTOS_SRC}
+    ${CMAKE_CURRENT_SOURCE_DIR}/main_satellite.c
+)
+
+# Link against pthread and realtime
+target_link_libraries(satellite_rtos 
+    PRIVATE Threads::Threads 
+    rt
+)
+
+# Custom target for resource-constrained execution
+add_custom_target(run_satellite
+    COMMAND ${CMAKE_COMMAND} -E env 
+        RLIMIT_AS=67108864     # Limit virtual memory to 64MB
+        RLIMIT_CPU=3600        # Limit CPU time to 1 hour
+        RLIMIT_STACK=262144    # Limit stack to 256KB
+        ./satellite_rtos
+    DEPENDS satellite_rtos
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Running satellite with resource constraints"
+)

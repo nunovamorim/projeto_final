@@ -1,0 +1,278 @@
+#include <stdio.h>
+#include <string.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "event_groups.h"
+
+/* Task handles */
+static TaskHandle_t xTask1Handle = NULL;
+static TaskHandle_t xTask2Handle = NULL;
+static TaskHandle_t xMonitorHandle = NULL;
+
+/* Queue for inter-task communication */
+static QueueHandle_t xDataQueue = NULL;
+
+/* Event group for synchronization */
+static EventGroupHandle_t xSystemEvents = NULL;
+
+#define SYSTEM_EVENT_TASK1_COMPLETE    ( 1 << 0 )
+#define SYSTEM_EVENT_TASK2_COMPLETE    ( 1 << 1 )
+
+/* Buffer for runtime stats */
+static char pcStatsBuffer[50];
+
+/* Task that simulates CPU-intensive work */
+void vTask1(void *pvParameters)
+{
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    const TickType_t xFrequency = pdMS_TO_TICKS(100); // 100ms period
+    
+    for(;;)
+    {
+        /* Simulate CPU-intensive work */
+        for(volatile uint32_t i = 0; i < 50000; i++) { }
+}
+
+int main(void)
+{
+    printf( "Testing FreeRTOS port\r\n" );
+    
+    /* Create the task, storing the handle. */
+    xTaskCreate(
+                    vTask1,         /* Function that implements the task. */
+                    "Task 1",       /* Text name for the task. */
+                    2048,          /* Stack size in words, not bytes. */
+                    NULL,          /* Parameter passed into the task. */
+                    3,             /* Priority at which the task is created. */
+                    NULL );        /* Used to pass out the created task's handle. */
+
+    /* Start the tasks and timer running. */
+    vTaskStartScheduler();
+
+    /* If all is well, the scheduler will now be running, and the following
+    line will never be reached.  If the following line does execute, then
+    there was insufficient FreeRTOS heap memory available for the idle and/or
+    timer tasks to be created. */
+    for( ;; );
+    
+    return 0;
+}
+#include <stdlib.h>
+#include <string.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
+/* Queues for inter-task communication */
+static QueueHandle_t xTCQueue;
+static QueueHandle_t xTMQueue;
+static QueueHandle_t xADCSQueue;
+
+/* Mutex for shared resources */
+static SemaphoreHandle_t xResourceMutex;
+
+/* Task handles */
+static TaskHandle_t xMainSOHandle;
+static TaskHandle_t xTCProcHandle;
+static TaskHandle_t xADCSProcHandle;
+static TaskHandle_t xTMProcHandle;
+
+/* Task declarations */
+static void prvMainSOTask(void *pvParameters);
+static void prvTCProcTask(void *pvParameters);
+static void prvADCSProcTask(void *pvParameters);
+static void prvTMProcTask(void *pvParameters);
+
+/* Structure for satellite data */
+typedef struct {
+    float attitude[3];     /* Roll, Pitch, Yaw */
+    float position[3];     /* X, Y, Z coordinates */
+    uint32_t temperature;  /* Satellite temperature */
+    uint32_t power_level; /* Battery power level */
+    uint8_t system_status;/* Overall system status */
+} SatelliteData_t;
+
+/* Global satellite data */
+static SatelliteData_t xSatelliteData;
+
+int main(void) {
+    /* Create queues */
+    xTCQueue = xQueueCreate(10, sizeof(uint32_t));
+    xTMQueue = xQueueCreate(10, sizeof(SatelliteData_t));
+    xADCSQueue = xQueueCreate(5, sizeof(float[3]));
+
+    /* Create mutex */
+    xResourceMutex = xSemaphoreCreateMutex();
+
+    /* Create tasks with minimal stack sizes and appropriate priorities */
+    xTaskCreate(prvMainSOTask,
+                "MAIN_SO",
+                configMINIMAL_STACK_SIZE * 4, /* Main task needs more stack */
+                NULL,
+                4, /* Highest priority */
+                &xMainSOHandle);
+
+    xTaskCreate(prvTCProcTask,
+                "TC_PROC",
+                configMINIMAL_STACK_SIZE * 2,
+                NULL,
+                3, /* High priority for commands */
+                &xTCProcHandle);
+
+    xTaskCreate(prvADCSProcTask,
+                "ADCS_PROC",
+                configMINIMAL_STACK_SIZE * 2,
+                NULL,
+                2, /* Medium priority */
+                &xADCSProcHandle);
+
+    xTaskCreate(prvTMProcTask,
+                "TM_PROC",
+                configMINIMAL_STACK_SIZE * 3, /* More stack for stats */
+                NULL,
+                1, /* Lowest priority */
+                &xTMProcHandle);
+
+    /* Start the scheduler */
+    vTaskStartScheduler();
+
+    /* Should never get here */
+    return 0;
+}
+
+static void prvMainSOTask(void *pvParameters) {
+    (void)pvParameters;
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = pdMS_TO_TICKS(1000); /* 1 second period */
+
+    /* Initialize the xLastWakeTime variable with the current time */
+    xLastWakeTime = xTaskGetTickCount();
+
+    for(;;) {
+        /* Take mutex to access shared resources */
+        if(xSemaphoreTake(xResourceMutex, portMAX_DELAY) == pdTRUE) {
+            /* Update system status */
+            xSatelliteData.system_status = 1; /* 1 = nominal */
+            
+            /* Simulate power management */
+            xSatelliteData.power_level = (xSatelliteData.power_level > 0) ? 
+                                        xSatelliteData.power_level - 1 : 100;
+
+            /* Release mutex */
+            xSemaphoreGive(xResourceMutex);
+        }
+
+        /* Send status to TM process */
+        xQueueSend(xTMQueue, &xSatelliteData, 0);
+
+        /* Wait for the next cycle */
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    }
+}
+
+static void prvTCProcTask(void *pvParameters) {
+    (void)pvParameters;
+    uint32_t ulReceivedCommand;
+
+    for(;;) {
+        /* Wait for command from ground station */
+        if(xQueueReceive(xTCQueue, &ulReceivedCommand, portMAX_DELAY) == pdPASS) {
+            /* Process telecommand */
+            switch(ulReceivedCommand) {
+                case 1: /* Example: Reset ADCS */
+                    float zero_attitude[3] = {0.0f, 0.0f, 0.0f};
+                    xQueueSend(xADCSQueue, &zero_attitude, 0);
+                    break;
+                /* Add more commands as needed */
+            }
+        }
+    }
+}
+
+static void prvADCSProcTask(void *pvParameters) {
+    (void)pvParameters;
+    float current_attitude[3] = {0.0f, 0.0f, 0.0f};
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = pdMS_TO_TICKS(100); /* 100ms period */
+
+    xLastWakeTime = xTaskGetTickCount();
+
+    for(;;) {
+        /* Process attitude determination */
+        if(xSemaphoreTake(xResourceMutex, portMAX_DELAY) == pdTRUE) {
+            /* Simulate attitude changes */
+            for(int i = 0; i < 3; i++) {
+                current_attitude[i] += 0.1f;
+                if(current_attitude[i] > 360.0f) {
+                    current_attitude[i] -= 360.0f;
+                }
+                xSatelliteData.attitude[i] = current_attitude[i];
+            }
+            xSemaphoreGive(xResourceMutex);
+        }
+
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    }
+}
+
+static void prvTMProcTask(void *pvParameters) {
+    (void)pvParameters;
+    SatelliteData_t xLocalData;
+    TickType_t xLastStatsTime = xTaskGetTickCount();
+    char pcStatsBuffer[512];
+    UBaseType_t uxHighWaterMark;
+
+    for(;;) {
+        /* Receive satellite data */
+        if(xQueueReceive(xTMQueue, &xLocalData, portMAX_DELAY) == pdPASS) {
+            /* Process telemetry */
+            printf("Satellite Status:\n");
+            printf("Attitude (RPY): %.2f, %.2f, %.2f\n", 
+                   xLocalData.attitude[0], 
+                   xLocalData.attitude[1], 
+                   xLocalData.attitude[2]);
+            printf("Power Level: %lu%%\n", xLocalData.power_level);
+            printf("System Status: %s\n", 
+                   xLocalData.system_status == 1 ? "Nominal" : "Warning");
+            
+            /* Print runtime stats every 5 seconds */
+            if((xTaskGetTickCount() - xLastStatsTime) >= pdMS_TO_TICKS(5000)) {
+                /* Get runtime stats */
+                vTaskGetRunTimeStats(pcStatsBuffer);
+                printf("\nTask Runtime Statistics:\n%s\n", pcStatsBuffer);
+                
+                /* Check memory usage */
+                uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+                printf("TM Task Stack HWM: %u words\n", (unsigned int)uxHighWaterMark);
+                
+                xLastStatsTime = xTaskGetTickCount();
+            }
+            printf("-----------------\n");
+        }
+    }
+}
+
+void vAssertCalled(const char * const pcFileName, unsigned long ulLine) {
+    volatile uint32_t ulSetToNonZeroInDebuggerToContinue = 0;
+
+    /* Parameters are not used. */
+    (void)ulLine;
+    (void)pcFileName;
+
+    printf("ASSERT! Line %ld, file %s\r\n", ulLine, pcFileName);
+
+    taskENTER_CRITICAL();
+    {
+        /* You can step out of this function to debug the assertion by using
+        the debugger to set ulSetToNonZeroInDebuggerToContinue to a non-zero
+        value. */
+        while(ulSetToNonZeroInDebuggerToContinue == 0) {
+            __asm volatile("NOP");
+            __asm volatile("NOP");
+        }
+    }
+    taskEXIT_CRITICAL();
+}

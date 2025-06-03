@@ -1,0 +1,70 @@
+OUTPUT_DIR := ./output
+IMAGE := $(OUTPUT_DIR)/RTOSDemo.out
+
+# The directory that contains the source directories.
+FREERTOS_ROOT = ../../../freertos
+
+CC = arm-none-eabi-gcc
+LD = arm-none-eabi-gcc
+SIZE = arm-none-eabi-size
+MAKE = make
+
+CFLAGS += -ffreestanding -mthumb -mcpu=cortex-m3
+CFLAGS += -Wall -Wextra -Wshadow -Wno-unused-value
+CFLAGS += -g3 -Os -ffunction-sections -fdata-sections
+CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)" -MT $@
+CFLAGS += $(INCLUDE_DIRS)
+
+LDFLAGS = -T ./mps2_m3.ld
+LDFLAGS += -Xlinker -Map=$(OUTPUT_DIR)/RTOSDemo.map
+LDFLAGS += -Xlinker --gc-sections
+LDFLAGS += -nostartfiles
+LDFLAGS += -specs=nano.specs -specs=nosys.specs # -specs=rdimon.specs
+
+#
+# Kernel build.
+#
+KERNEL_DIR = $(FREERTOS_ROOT)/Source
+KERNEL_PORT_DIR = $(KERNEL_DIR)/portable/GCC/ARM_CM3
+INCLUDE_DIRS += -I$(KERNEL_DIR)/include \
+				-I$(KERNEL_PORT_DIR)
+VPATH += $(KERNEL_DIR) $(KERNEL_PORT_DIR) $(KERNEL_DIR)/portable/MemMang
+SOURCE_FILES += $(KERNEL_DIR)/tasks.c
+SOURCE_FILES += $(KERNEL_DIR)/list.c
+SOURCE_FILES += $(KERNEL_DIR)/queue.c
+SOURCE_FILES += $(KERNEL_DIR)/timers.c
+SOURCE_FILES += $(KERNEL_DIR)/event_groups.c
+SOURCE_FILES += $(KERNEL_DIR)/stream_buffer.c
+SOURCE_FILES += $(KERNEL_DIR)/portable/MemMang/heap_4.c
+SOURCE_FILES += $(KERNEL_PORT_DIR)/port.c
+
+#
+# Common demo files
+#
+DEMO_ROOT = $(FREERTOS_ROOT)/Demo
+DEMO_PROJECT = $(DEMO_ROOT)/CORTEX_MPS2_QEMU_IAR_GCC
+VPATH += $(DEMO_PROJECT)
+INCLUDE_DIRS += -I$(DEMO_PROJECT) -I$(DEMO_PROJECT)/CMSIS
+SOURCE_FILES += main_satellite.c
+SOURCE_FILES += ./startup_gcc.c
+SOURCE_FILES += ./printf-stdarg.c
+
+#Create a list of object files with the desired output directory path.
+OBJS = $(SOURCE_FILES:%.c=$(OUTPUT_DIR)/%.o)
+
+#Create a list of dependency files with the desired output directory path.
+DEP_FILES = $(OBJS:%.o=%.d)
+
+all: $(IMAGE)
+
+$(OUTPUT_DIR)/%.o : %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(IMAGE): ./mps2_m3.ld $(OBJS) Makefile.fixed
+	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+	$(SIZE) $@
+
+clean:
+	rm -f $(OUTPUT_DIR)/*.o $(OUTPUT_DIR)/*.d $(OUTPUT_DIR)/*.map $(IMAGE)
+
+-include $(DEP_FILES)
