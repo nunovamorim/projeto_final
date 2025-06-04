@@ -83,12 +83,12 @@ clean: CMakeFiles/size.dir/clean
 CMakeFiles/satellite.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/satellite.dir/build.make CMakeFiles/satellite.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/satellite.dir/build.make CMakeFiles/satellite.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 "Built target satellite"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 "Built target satellite"
 .PHONY : CMakeFiles/satellite.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/satellite.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles 19
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles 18
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/satellite.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles 0
 .PHONY : CMakeFiles/satellite.dir/rule
@@ -114,7 +114,7 @@ CMakeFiles/size.dir/all: CMakeFiles/satellite.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/size.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles 19
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles 18
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/size.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles 0
 .PHONY : CMakeFiles/size.dir/rule

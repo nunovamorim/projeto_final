@@ -194,108 +194,10 @@ CMakeFiles/satellite.dir/startup_stm32.s.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/satellite.dir/startup_stm32.s.s"
 	/usr/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/startup_stm32.s -o CMakeFiles/satellite.dir/startup_stm32.s.s
 
-CMakeFiles/satellite.dir/main.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/main.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c
-CMakeFiles/satellite.dir/main.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/satellite.dir/main.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/main.c.obj -MF CMakeFiles/satellite.dir/main.c.obj.d -o CMakeFiles/satellite.dir/main.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c
-
-CMakeFiles/satellite.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/main.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c > CMakeFiles/satellite.dir/main.c.i
-
-CMakeFiles/satellite.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/main.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c -o CMakeFiles/satellite.dir/main.c.s
-
-CMakeFiles/satellite.dir/tasks/main_so.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/tasks/main_so.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c
-CMakeFiles/satellite.dir/tasks/main_so.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/satellite.dir/tasks/main_so.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/main_so.c.obj -MF CMakeFiles/satellite.dir/tasks/main_so.c.obj.d -o CMakeFiles/satellite.dir/tasks/main_so.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c
-
-CMakeFiles/satellite.dir/tasks/main_so.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/main_so.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c > CMakeFiles/satellite.dir/tasks/main_so.c.i
-
-CMakeFiles/satellite.dir/tasks/main_so.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/main_so.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c -o CMakeFiles/satellite.dir/tasks/main_so.c.s
-
-CMakeFiles/satellite.dir/tasks/tc_proc.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/tasks/tc_proc.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c
-CMakeFiles/satellite.dir/tasks/tc_proc.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/satellite.dir/tasks/tc_proc.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/tc_proc.c.obj -MF CMakeFiles/satellite.dir/tasks/tc_proc.c.obj.d -o CMakeFiles/satellite.dir/tasks/tc_proc.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c
-
-CMakeFiles/satellite.dir/tasks/tc_proc.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/tc_proc.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c > CMakeFiles/satellite.dir/tasks/tc_proc.c.i
-
-CMakeFiles/satellite.dir/tasks/tc_proc.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/tc_proc.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c -o CMakeFiles/satellite.dir/tasks/tc_proc.c.s
-
-CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c
-CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj -MF CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj.d -o CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c
-
-CMakeFiles/satellite.dir/tasks/adcs_proc.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/adcs_proc.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c > CMakeFiles/satellite.dir/tasks/adcs_proc.c.i
-
-CMakeFiles/satellite.dir/tasks/adcs_proc.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/adcs_proc.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c -o CMakeFiles/satellite.dir/tasks/adcs_proc.c.s
-
-CMakeFiles/satellite.dir/tasks/tm_proc.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/tasks/tm_proc.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c
-CMakeFiles/satellite.dir/tasks/tm_proc.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/satellite.dir/tasks/tm_proc.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/tm_proc.c.obj -MF CMakeFiles/satellite.dir/tasks/tm_proc.c.obj.d -o CMakeFiles/satellite.dir/tasks/tm_proc.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c
-
-CMakeFiles/satellite.dir/tasks/tm_proc.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/tm_proc.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c > CMakeFiles/satellite.dir/tasks/tm_proc.c.i
-
-CMakeFiles/satellite.dir/tasks/tm_proc.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/tm_proc.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c -o CMakeFiles/satellite.dir/tasks/tm_proc.c.s
-
-CMakeFiles/satellite.dir/comm/tcp_client.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/comm/tcp_client.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c
-CMakeFiles/satellite.dir/comm/tcp_client.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/satellite.dir/comm/tcp_client.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/comm/tcp_client.c.obj -MF CMakeFiles/satellite.dir/comm/tcp_client.c.obj.d -o CMakeFiles/satellite.dir/comm/tcp_client.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c
-
-CMakeFiles/satellite.dir/comm/tcp_client.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/comm/tcp_client.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c > CMakeFiles/satellite.dir/comm/tcp_client.c.i
-
-CMakeFiles/satellite.dir/comm/tcp_client.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/comm/tcp_client.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c -o CMakeFiles/satellite.dir/comm/tcp_client.c.s
-
-CMakeFiles/satellite.dir/src/utils.c.obj: CMakeFiles/satellite.dir/flags.make
-CMakeFiles/satellite.dir/src/utils.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/utils.c
-CMakeFiles/satellite.dir/src/utils.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/satellite.dir/src/utils.c.obj"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/src/utils.c.obj -MF CMakeFiles/satellite.dir/src/utils.c.obj.d -o CMakeFiles/satellite.dir/src/utils.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/utils.c
-
-CMakeFiles/satellite.dir/src/utils.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/src/utils.c.i"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/utils.c > CMakeFiles/satellite.dir/src/utils.c.i
-
-CMakeFiles/satellite.dir/src/utils.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/src/utils.c.s"
-	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/utils.c -o CMakeFiles/satellite.dir/src/utils.c.s
-
 CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj: CMakeFiles/satellite.dir/flags.make
 CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/system_stm32f1xx.c
 CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj"
 	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj -MF CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj.d -o CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/system_stm32f1xx.c
 
 CMakeFiles/satellite.dir/src/system_stm32f1xx.c.i: cmake_force
@@ -309,7 +211,7 @@ CMakeFiles/satellite.dir/src/system_stm32f1xx.c.s: cmake_force
 CMakeFiles/satellite.dir/src/freertos_hooks.c.obj: CMakeFiles/satellite.dir/flags.make
 CMakeFiles/satellite.dir/src/freertos_hooks.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/freertos_hooks.c
 CMakeFiles/satellite.dir/src/freertos_hooks.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/satellite.dir/src/freertos_hooks.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/satellite.dir/src/freertos_hooks.c.obj"
 	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/src/freertos_hooks.c.obj -MF CMakeFiles/satellite.dir/src/freertos_hooks.c.obj.d -o CMakeFiles/satellite.dir/src/freertos_hooks.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/freertos_hooks.c
 
 CMakeFiles/satellite.dir/src/freertos_hooks.c.i: cmake_force
@@ -319,6 +221,90 @@ CMakeFiles/satellite.dir/src/freertos_hooks.c.i: cmake_force
 CMakeFiles/satellite.dir/src/freertos_hooks.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/src/freertos_hooks.c.s"
 	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/src/freertos_hooks.c -o CMakeFiles/satellite.dir/src/freertos_hooks.c.s
+
+CMakeFiles/satellite.dir/main.c.obj: CMakeFiles/satellite.dir/flags.make
+CMakeFiles/satellite.dir/main.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c
+CMakeFiles/satellite.dir/main.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/satellite.dir/main.c.obj"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/main.c.obj -MF CMakeFiles/satellite.dir/main.c.obj.d -o CMakeFiles/satellite.dir/main.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c
+
+CMakeFiles/satellite.dir/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/main.c.i"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c > CMakeFiles/satellite.dir/main.c.i
+
+CMakeFiles/satellite.dir/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/main.c.s"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c -o CMakeFiles/satellite.dir/main.c.s
+
+CMakeFiles/satellite.dir/tasks/main_so.c.obj: CMakeFiles/satellite.dir/flags.make
+CMakeFiles/satellite.dir/tasks/main_so.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c
+CMakeFiles/satellite.dir/tasks/main_so.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/satellite.dir/tasks/main_so.c.obj"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/main_so.c.obj -MF CMakeFiles/satellite.dir/tasks/main_so.c.obj.d -o CMakeFiles/satellite.dir/tasks/main_so.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c
+
+CMakeFiles/satellite.dir/tasks/main_so.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/main_so.c.i"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c > CMakeFiles/satellite.dir/tasks/main_so.c.i
+
+CMakeFiles/satellite.dir/tasks/main_so.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/main_so.c.s"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c -o CMakeFiles/satellite.dir/tasks/main_so.c.s
+
+CMakeFiles/satellite.dir/tasks/tc_proc.c.obj: CMakeFiles/satellite.dir/flags.make
+CMakeFiles/satellite.dir/tasks/tc_proc.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c
+CMakeFiles/satellite.dir/tasks/tc_proc.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/satellite.dir/tasks/tc_proc.c.obj"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/tc_proc.c.obj -MF CMakeFiles/satellite.dir/tasks/tc_proc.c.obj.d -o CMakeFiles/satellite.dir/tasks/tc_proc.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c
+
+CMakeFiles/satellite.dir/tasks/tc_proc.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/tc_proc.c.i"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c > CMakeFiles/satellite.dir/tasks/tc_proc.c.i
+
+CMakeFiles/satellite.dir/tasks/tc_proc.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/tc_proc.c.s"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c -o CMakeFiles/satellite.dir/tasks/tc_proc.c.s
+
+CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj: CMakeFiles/satellite.dir/flags.make
+CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c
+CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj -MF CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj.d -o CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c
+
+CMakeFiles/satellite.dir/tasks/adcs_proc.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/adcs_proc.c.i"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c > CMakeFiles/satellite.dir/tasks/adcs_proc.c.i
+
+CMakeFiles/satellite.dir/tasks/adcs_proc.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/adcs_proc.c.s"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c -o CMakeFiles/satellite.dir/tasks/adcs_proc.c.s
+
+CMakeFiles/satellite.dir/tasks/tm_proc.c.obj: CMakeFiles/satellite.dir/flags.make
+CMakeFiles/satellite.dir/tasks/tm_proc.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c
+CMakeFiles/satellite.dir/tasks/tm_proc.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/satellite.dir/tasks/tm_proc.c.obj"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/tasks/tm_proc.c.obj -MF CMakeFiles/satellite.dir/tasks/tm_proc.c.obj.d -o CMakeFiles/satellite.dir/tasks/tm_proc.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c
+
+CMakeFiles/satellite.dir/tasks/tm_proc.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/tasks/tm_proc.c.i"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c > CMakeFiles/satellite.dir/tasks/tm_proc.c.i
+
+CMakeFiles/satellite.dir/tasks/tm_proc.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/tasks/tm_proc.c.s"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tm_proc.c -o CMakeFiles/satellite.dir/tasks/tm_proc.c.s
+
+CMakeFiles/satellite.dir/comm/tcp_client.c.obj: CMakeFiles/satellite.dir/flags.make
+CMakeFiles/satellite.dir/comm/tcp_client.c.obj: /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c
+CMakeFiles/satellite.dir/comm/tcp_client.c.obj: CMakeFiles/satellite.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/satellite.dir/comm/tcp_client.c.obj"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/satellite.dir/comm/tcp_client.c.obj -MF CMakeFiles/satellite.dir/comm/tcp_client.c.obj.d -o CMakeFiles/satellite.dir/comm/tcp_client.c.obj -c /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c
+
+CMakeFiles/satellite.dir/comm/tcp_client.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/satellite.dir/comm/tcp_client.c.i"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c > CMakeFiles/satellite.dir/comm/tcp_client.c.i
+
+CMakeFiles/satellite.dir/comm/tcp_client.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/satellite.dir/comm/tcp_client.c.s"
+	/usr/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/istec/projeto_final/satellite/cortex_qemu_satellite/comm/tcp_client.c -o CMakeFiles/satellite.dir/comm/tcp_client.c.s
 
 # Object files for target satellite
 satellite_OBJECTS = \
@@ -331,15 +317,14 @@ satellite_OBJECTS = \
 "CMakeFiles/satellite.dir/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.obj" \
 "CMakeFiles/satellite.dir/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.obj" \
 "CMakeFiles/satellite.dir/startup_stm32.s.obj" \
+"CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj" \
+"CMakeFiles/satellite.dir/src/freertos_hooks.c.obj" \
 "CMakeFiles/satellite.dir/main.c.obj" \
 "CMakeFiles/satellite.dir/tasks/main_so.c.obj" \
 "CMakeFiles/satellite.dir/tasks/tc_proc.c.obj" \
 "CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj" \
 "CMakeFiles/satellite.dir/tasks/tm_proc.c.obj" \
-"CMakeFiles/satellite.dir/comm/tcp_client.c.obj" \
-"CMakeFiles/satellite.dir/src/utils.c.obj" \
-"CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj" \
-"CMakeFiles/satellite.dir/src/freertos_hooks.c.obj"
+"CMakeFiles/satellite.dir/comm/tcp_client.c.obj"
 
 # External object files for target satellite
 satellite_EXTERNAL_OBJECTS =
@@ -353,18 +338,17 @@ satellite.elf: CMakeFiles/satellite.dir/FreeRTOS/FreeRTOS/Source/stream_buffer.c
 satellite.elf: CMakeFiles/satellite.dir/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.obj
 satellite.elf: CMakeFiles/satellite.dir/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.obj
 satellite.elf: CMakeFiles/satellite.dir/startup_stm32.s.obj
+satellite.elf: CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj
+satellite.elf: CMakeFiles/satellite.dir/src/freertos_hooks.c.obj
 satellite.elf: CMakeFiles/satellite.dir/main.c.obj
 satellite.elf: CMakeFiles/satellite.dir/tasks/main_so.c.obj
 satellite.elf: CMakeFiles/satellite.dir/tasks/tc_proc.c.obj
 satellite.elf: CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj
 satellite.elf: CMakeFiles/satellite.dir/tasks/tm_proc.c.obj
 satellite.elf: CMakeFiles/satellite.dir/comm/tcp_client.c.obj
-satellite.elf: CMakeFiles/satellite.dir/src/utils.c.obj
-satellite.elf: CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj
-satellite.elf: CMakeFiles/satellite.dir/src/freertos_hooks.c.obj
 satellite.elf: CMakeFiles/satellite.dir/build.make
 satellite.elf: CMakeFiles/satellite.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking C executable satellite.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking C executable satellite.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/satellite.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/arm-none-eabi-objcopy -O ihex /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/satellite.elf /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/satellite.hex
 	/usr/bin/arm-none-eabi-objcopy -O binary /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/satellite.elf /home/istec/projeto_final/satellite/cortex_qemu_satellite/build/satellite.bin
