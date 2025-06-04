@@ -11,6 +11,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 # Communication settings
@@ -209,7 +210,15 @@ class GroundStationGUI:
         right_frame = ttk.Frame(telemetry_frame)
         right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        # Create figures for plots
+        # Create tab control for different visualizations
+        tab_control = ttk.Notebook(right_frame)
+        tab_control.pack(fill=tk.BOTH, expand=True)
+        
+        # Tab 1: 2D plots for telemetry
+        tab_2d = ttk.Frame(tab_control)
+        tab_control.add(tab_2d, text="2D Telemetry")
+        
+        # Create figures for 2D plots
         self.fig, (self.ax1, self.ax2) = plt.subplots(2, 1, figsize=(6, 6))
         
         # Attitude plot
@@ -222,9 +231,44 @@ class GroundStationGUI:
         self.ax2.set_xlabel('Time (s)')
         self.ax2.grid(True)
         
-        # Add plots to the GUI
-        self.canvas = FigureCanvasTkAgg(self.fig, master=right_frame)
+        # Add 2D plots to the GUI
+        self.canvas = FigureCanvasTkAgg(self.fig, master=tab_2d)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        
+        # Tab 2: 3D position visualization
+        tab_3d = ttk.Frame(tab_control)
+        tab_control.add(tab_3d, text="3D Position")
+        
+        # Create 3D plot
+        self.fig3d = plt.figure(figsize=(6, 6))
+        self.ax3d = self.fig3d.add_subplot(111, projection='3d')
+        self.ax3d.set_title('Satellite Position')
+        self.ax3d.set_xlabel('X (km)')
+        self.ax3d.set_ylabel('Y (km)')
+        self.ax3d.set_zlabel('Z (km)')
+        
+        # Initialize satellite position trajectory
+        self.pos_x = []
+        self.pos_y = []
+        self.pos_z = []
+        self.max_trajectory_points = 50  # Maximum number of points to show in trajectory
+        
+        # Draw Earth (simplified)
+        u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+        earth_radius = 6371  # km
+        x = 0.2 * earth_radius * np.cos(u) * np.sin(v)
+        y = 0.2 * earth_radius * np.sin(u) * np.sin(v)
+        z = 0.2 * earth_radius * np.cos(v)
+        self.ax3d.plot_surface(x, y, z, color='blue', alpha=0.3)
+        
+        # Set initial view
+        self.ax3d.set_xlim([-10000, 10000])
+        self.ax3d.set_ylim([-10000, 10000])
+        self.ax3d.set_zlim([-10000, 10000])
+        
+        # Add 3D plot to GUI
+        self.canvas3d = FigureCanvasTkAgg(self.fig3d, master=tab_3d)
+        self.canvas3d.get_tk_widget().pack(fill=tk.BOTH, expand=True)
         
         # Message frame
         msg_frame = ttk.LabelFrame(main_frame, text="Messages", padding="5")
@@ -329,11 +373,18 @@ class GroundStationGUI:
     
     def receive_telemetry(self):
         """Thread function to receive telemetry from the server"""
+        reconnect_attempts = 0
+        max_reconnect_attempts = 5
+        reconnect_interval = 5  # seconds
+        
         while True:
             if self.connected and self.socket:
                 try:
                     self.socket.settimeout(0.1)
                     data = self.socket.recv(BUFFER_SIZE)
+                    
+                    # Reset reconnection counter on successful data reception
+                    reconnect_attempts = 0
                     
                     if data and len(data) > 0:
                         if data[0] == 0xBB:  # Telemetry header
@@ -354,20 +405,44 @@ class GroundStationGUI:
                                     self.root.after(0, self.update_telemetry_display)
                                 else:
                                     self.log_message("Failed to parse telemetry data")
+                    elif not data:
+                        # Empty data indicates a disconnection
+                        self.log_message("Connection lost - server closed connection")
+                        self.root.after(0, self.attempt_reconnect)
+                        break
                 
-            except socket.timeout:
-                # This is expected, just continue
-                pass
-            except ConnectionError:
-                self.log_message("Connection lost")
-                self.root.after(0, self.disconnect_from_server)
-                break
-            except Exception as e:
-                self.log_message(f"Error receiving telemetry: {str(e)}")
-                print(f"Exception in receive_telemetry: {str(e)}")  # Debug output
-        
-        # Sleep a bit to avoid heavy CPU usage
-        time.sleep(0.1)
+                except socket.timeout:
+                    # This is expected, just continue
+                    pass
+                except ConnectionResetError:
+                    self.log_message("Connection reset by server")
+                    self.root.after(0, self.attempt_reconnect)
+                    break
+                except ConnectionRefusedError:
+                    self.log_message("Connection refused by server")
+                    self.root.after(0, self.attempt_reconnect)
+                    break
+                except ConnectionAbortedError:
+                    self.log_message("Connection aborted")
+                    self.root.after(0, self.attempt_reconnect)
+                    break
+                except ConnectionError:
+                    self.log_message("Connection lost")
+                    self.root.after(0, self.attempt_reconnect)
+                    break
+                except OSError as e:
+                    if e.errno == 10054:  # Connection reset by peer
+                        self.log_message("Server forcibly closed connection")
+                        self.root.after(0, self.attempt_reconnect)
+                        break
+                    else:
+                        self.log_message(f"Socket error: {e}")
+                except Exception as e:
+                    self.log_message(f"Error receiving telemetry: {str(e)}")
+                    print(f"Exception in receive_telemetry: {str(e)}")  # Debug output
+            
+            # Sleep a bit to avoid heavy CPU usage
+            time.sleep(0.1)
     
     def update_telemetry_display(self):
         """Update the telemetry display with current satellite data"""
@@ -423,6 +498,33 @@ class GroundStationGUI:
             
             # Draw the plot
             self.canvas.draw()
+    
+    def attempt_reconnect(self):
+        """Attempt to reconnect to the server after connection loss"""
+        # Disconnect first if we're still connected
+        self.disconnect_from_server()
+        
+        # Let the user know we're trying to reconnect
+        self.log_message("Attempting to reconnect...")
+        
+        try:
+            server_ip = self.ip_var.get()
+            server_port = self.port_var.get()
+            
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.settimeout(5)
+            self.socket.connect((server_ip, server_port))
+            
+            self.connected = True
+            self.update_connection_status()
+            self.log_message(f"Reconnected to {server_ip}:{server_port}")
+            
+            # Start new receiver thread
+            self.start_receiver_thread()
+        except Exception as e:
+            self.log_message(f"Reconnection failed: {e}")
+            # Schedule another attempt after 5 seconds
+            self.root.after(5000, self.attempt_reconnect)
     
     def log_message(self, message):
         """Add a message to the log"""
