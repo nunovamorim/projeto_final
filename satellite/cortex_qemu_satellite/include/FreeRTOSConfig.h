@@ -54,12 +54,17 @@
 #define configTIMER_TASK_STACK_DEPTH           configMINIMAL_STACK_SIZE
 
 /* Interrupt nesting behaviour configuration. */
-#define configKERNEL_INTERRUPT_PRIORITY         [dependent on processor]
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY    [dependent on processor]
-#define configMAX_API_CALL_INTERRUPT_PRIORITY   [dependent on processor]
+#define configKERNEL_INTERRUPT_PRIORITY         ( 7 << 5 )    /* Priority 7, or 0xE0 as only the top three bits are implemented. */
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY    ( 5 << 5 )    /* Priority 5, or 0xA0 as only the top three bits are implemented. */
+#define configMAX_API_CALL_INTERRUPT_PRIORITY   configMAX_SYSCALL_INTERRUPT_PRIORITY
 
 /* Define to trap errors during development. */
+extern void vAssertCalled(const char* file, int line);
 #define configASSERT(x)     if((x) == 0) vAssertCalled(__FILE__, __LINE__)
+
+/* Define the timer configuration for run time stats */
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()    do {} while(0) /* No special timer setup needed */
+#define portGET_RUN_TIME_COUNTER_VALUE()            xTaskGetTickCount()
 
 /* FreeRTOS MPU specific definitions. */
 #define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 0

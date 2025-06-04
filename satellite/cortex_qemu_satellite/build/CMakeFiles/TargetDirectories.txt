@@ -1,0 +1,4 @@
+/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles/satellite.dir
+/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles/size.dir
+/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles/edit_cache.dir
+/home/istec/projeto_final/satellite/cortex_qemu_satellite/build/CMakeFiles/rebuild_cache.dir

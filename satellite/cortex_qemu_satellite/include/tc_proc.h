@@ -12,6 +12,6 @@
 
 // Function declarations
 void vTCProcTask(void *pvParameters);
-BaseType_t xProcessCommand(const Command* command);
+BaseType_t xProcessCommand(Command* command);
 
 #endif /* TC_PROC_H */

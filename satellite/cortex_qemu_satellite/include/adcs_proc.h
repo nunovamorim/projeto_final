@@ -3,6 +3,10 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
+#include "semphr.h"
+
+// External declarations
+extern SemaphoreHandle_t xResourceMutex;
 
 // ADCS parameters
 typedef struct {

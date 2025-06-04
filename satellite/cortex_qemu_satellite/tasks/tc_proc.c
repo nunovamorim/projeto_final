@@ -7,6 +7,7 @@ static uint8_t commandBuffer[256];
 
 void vTCProcTask(void *pvParameters)
 {
+    (void)pvParameters;
     TCPStatus status;
     Command command;
     size_t received;
@@ -54,12 +55,12 @@ void vTCProcTask(void *pvParameters)
     }
 }
 
-BaseType_t xProcessCommand(const Command* command)
+BaseType_t xProcessCommand(Command* command)
 {
     // Parse command from buffer and populate Command structure
     // This is a simplified implementation - in reality, would need proper protocol parsing
     
-    Command newCommand;
+    Command newCommand = {0}; // Initialize to zero
     uint8_t cmdType = commandBuffer[0]; // First byte indicates command type
     
     switch(cmdType)

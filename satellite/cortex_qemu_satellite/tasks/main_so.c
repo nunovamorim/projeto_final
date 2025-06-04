@@ -16,7 +16,7 @@ void vMainSOTask(void *pvParameters)
 
     // Inicializar contadores de watchdog
     for(int i = 0; i < 4; i++) {
-        watchdogCounters[i] = 0;
+        watchdogCounters[i] = xTaskGetTickCount();
     }
 
     // Task main loop
@@ -107,75 +107,5 @@ void vUpdateTaskWatchdog(uint8_t taskId)
     if(taskId < 4)
     {
         watchdogCounters[taskId] = xTaskGetTickCount();
-    }
-}
-
-// Função de assert para debug
-void vAssertCalled(const char *file, uint32_t line)
-{
-    taskDISABLE_INTERRUPTS();
-    for(;;)
-    {
-        // Loop infinito para debug
-    }
-}
-#include "tc_proc.h"
-#include "adcs_proc.h"
-#include "tm_proc.h"
-
-void vMainSOTask(void *pvParameters)
-{
-    Command receivedCommand;
-    BaseType_t xStatus;
-
-    // Task initialization
-    for(;;)
-    {
-        // Wait for command from TC_PROC
-        if(xQueueReceive(xCommandQueue, &receivedCommand, portMAX_DELAY) == pdPASS)
-        {
-            // Process command based on type
-            switch(receivedCommand.type)
-            {
-                case CMD_ADCS_CONTROL:
-                    // Handle ADCS control command
-                    if(xSemaphoreTake(xResourceMutex, portMAX_DELAY) == pdTRUE)
-                    {
-                        xUpdateAttitude((float*)receivedCommand.parameters);
-                        xSemaphoreGive(xResourceMutex);
-                    }
-                    break;
-
-                case CMD_TELEMETRY_REQUEST:
-                    // Handle telemetry request
-                    {
-                        TelemetryPacket telemetry;
-                        telemetry.timestamp = xTaskGetTickCount();
-                        
-                        if(xSemaphoreTake(xResourceMutex, portMAX_DELAY) == pdTRUE)
-                        {
-                            telemetry.adcs_status = xGetADCSStatus();
-                            xSemaphoreGive(xResourceMutex);
-                        }
-
-                        // Send telemetry packet
-                        xQueueSend(xTelemetryQueue, &telemetry, portMAX_DELAY);
-                    }
-                    break;
-
-                default:
-                    // Handle unknown command
-                    break;
-            }
-
-            // Free command parameters if allocated
-            if(receivedCommand.parameters != NULL)
-            {
-                vPortFree(receivedCommand.parameters);
-            }
-        }
-
-        // Add small delay to prevent tight loop
-        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

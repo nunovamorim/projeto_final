@@ -3,6 +3,11 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
+#include "semphr.h"
+#include "adcs_proc.h"
+
+// External declarations
+extern SemaphoreHandle_t xResourceMutex;
 
 // Telemetry packet structure
 typedef struct {

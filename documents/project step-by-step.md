@@ -96,20 +96,22 @@ Para validar o funcionamento e desempenho do RTOS simulado, serão definidas mé
 ### **1.2. Configurar ambiente virtual**
 
 - Criar duas VMs Hyper-V (Satélite e Ground Station) com IP fixo em rede interna.
-- Instalar Pop!_OS nas duas VMs.
-- Configurar QEMU na VM Satélite para executar FreeRTOS em arquitetura POSIX (emulação simplificada).
+- VMSat (VM que vai emular o satélite) tem como SO o Linux Ubuntu Server 24.04.
+- VMGS (VM que vai emular a Ground Station) tem como SO o Linux Pop OS! 22.04.
+- Ambas foram criadas em Hyper-V, com ip fixo (VMSat: 192.168.1.95 | VMGS: 192.168.1.96 )
+- Configurar QEMU na VM Satélite para executar FreeRTOS em arquitetura CORTEX_LM3S6965_GCC_QEMU (nota que os repositórios Github do FreeRTOS contêm submodulos Git, pelo que deves de utilizar sempre a opção --recurse-submodules).
 
 **Passos para a Configuração**
 
-1. **Escolha da Plataforma de Emulação (Arquitetura POSIX)**
-    - Optar por executar FreeRTOS numa plataforma POSIX simulada dentro do QEMU, que permite correr o kernel FreeRTOS num sistema operativo Linux hospedado, simplificando o desenvolvimento e testes.
-    - Esta configuração reduz a complexidade da emulação de hardware específico (ex.: ARM Cortex-M) e permite uso direto das chamadas POSIX para temporização e gestão de tarefas, com menor overhead.
+1. **Escolha da Plataforma de Emulação (Arquitetura CORTEX_LM3S6965_GCC_QEMU)**
+    - Optar por executar FreeRTOS numa plataforma CORTEX_LM3S6965_GCC_QEMU simulada dentro do QEMU, que permite correr o kernel FreeRTOS num sistema operativo Linux hospedado, simplificando o desenvolvimento e testes.
+    - Esta configuração reduz a complexidade da emulação de hardware específico (ex.: ARM Cortex-M) e permite uso direto das chamadas CORTEX_LM3S6965_GCC_QEMU para temporização e gestão de tarefas, com menor overhead.
 2. **Instalação e Configuração do QEMU na VM Satélite**
-    - Instalar o QEMU no Pop!_OS da VM Satélite via gestor de pacotes (ex.: `sudo apt install qemu`).
-    - Garantir que o QEMU suporta a arquitetura desejada (x86_64, ARM ou a arquitetura de emulação POSIX).
-    - Configurar rede interna entre a VM Satélite e Ground Station para permitir comunicação TCP/IP entre QEMU e dashboard.
-3. **Compilação do FreeRTOS para Ambiente POSIX**
-    - Obter o código fonte do FreeRTOS com suporte POSIX (ex.: port POSIX disponível no repositório oficial).
+    - Instalar o QEMU no Ubuntu Server da VM Satélite via gestor de pacotes (ex.: `sudo apt install qemu`).
+    - Garantir que o QEMU suporta a arquitetura desejada (x86_64, ARM ou a arquitetura de emulação CORTEX_LM3S6965_GCC_QEMU).
+    - Configurar rede entre a VM Satélite e Ground Station para permitir comunicação TCP/IP entre QEMU e dashboard.
+3. **Compilação do FreeRTOS para Ambiente CORTEX_LM3S6965_GCC_QEMU**
+    - Obter o código fonte do FreeRTOS com suporte CORTEX_LM3S6965_GCC_QEMU (ex.: port CORTEX_LM3S6965_GCC_QEMU disponível no repositório oficial).
     - Adaptar e compilar o FreeRTOS para correr como processo no Linux da VM, utilizando o QEMU para isolar e limitar recursos (memória, CPU).
     - Configurar o projeto para simular as restrições típicas de um sistema embarcado, limitando recursos e temporização para aproximar-se do comportamento real.
 4. **Configuração de Limitação de Recursos no QEMU**
@@ -117,9 +119,9 @@ Para validar o funcionamento e desempenho do RTOS simulado, serão definidas mé
     - Utilizar opções do QEMU para simular temporizações e interrupções que representem um sistema embarcado.
 5. **Implementação da Comunicação entre QEMU (FreeRTOS) e Ground Station**
     - Configurar canais de comunicação virtuais (ex.: sockets TCP/IP bridged entre QEMU e a rede da VM).
-    - Garantir que o FreeRTOS na emulação POSIX inclui cliente TCP para envio de telemetria e receção de comandos.
+    - Garantir que o FreeRTOS na emulação CORTEX_LM3S6965_GCC_QEMU inclui cliente TCP para envio de telemetria e receção de comandos.
 6. **Validação da Configuração**
-    - Executar FreeRTOS no QEMU, verificar que as tasks correm corretamente dentro do ambiente POSIX.
+    - Executar FreeRTOS no QEMU, verificar que as tasks correm corretamente dentro do ambiente CORTEX_LM3S6965_GCC_QEMU.
     - Testar envio/receção básica de mensagens TCP para a Ground Station.
     - Confirmar que as restrições de recursos estão ativas e observáveis (medir latência, uso CPU/memória).
     - Definir método de comunicação entre VMs (exemplo: sockets TCP/IP para simular comunicação satélite-terra).
@@ -199,6 +201,7 @@ A escolha de um microkernel simples com escalonamento preemptivo e prioridades f
     - Despachar comandos para as tarefas específicas (ex.: enviar instruções ao ADCS_proc).
     - Monitorizar o estado das tarefas, detectar falhas ou anomalias e tomar ações corretivas (ex.: reiniciar tarefas).
     - Gerir a sincronização e comunicação interprocessos para assegurar a coerência dos dados.
+
 - **Importância:**
     
     Esta tarefa é crítica para o funcionamento integrado do sistema, funcionando como núcleo decisor e supervisor.

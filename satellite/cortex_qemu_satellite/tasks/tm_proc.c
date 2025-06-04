@@ -1,6 +1,9 @@
 #include <string.h>
+#include <stdlib.h>
+#include <math.h>
 #include "tm_proc.h"
 #include "tcp_client.h"
+#include "adcs_proc.h"
 
 // Simulated sensor values
 static float temperature = 20.0f;
@@ -9,9 +12,13 @@ static float battery = 95.0f;
 
 void vTMProcTask(void *pvParameters)
 {
+    (void)pvParameters;
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = pdMS_TO_TICKS(1000); // 1 Hz telemetry rate
     TelemetryPacket packet;
+    
+    // Initialize random number generator
+    srand((unsigned int)xTaskGetTickCount());
     
     // Initialize task timing
     xLastWakeTime = xTaskGetTickCount();
@@ -34,12 +41,8 @@ void vTMProcTask(void *pvParameters)
         packet.power = power;
         packet.battery_level = battery;
         
-        // Get ADCS status
-        if(xSemaphoreTake(xResourceMutex, portMAX_DELAY) == pdTRUE)
-        {
-            packet.adcs_status = xGetADCSStatus();
-            xSemaphoreGive(xResourceMutex);
-        }
+        // Get ADCS status - using ADCS module's thread-safe getter
+        packet.adcs_status = xGetADCSStatus();
         
         // Send telemetry packet
         xSendTelemetry(&packet);
@@ -59,5 +62,6 @@ BaseType_t xSendTelemetry(const TelemetryPacket* packet)
     // Send telemetry packet via TCP
     TCPStatus status = xTCPSend(packet, sizeof(TelemetryPacket));
     
+    // Convert TCP status to FreeRTOS status
     return (status == TCP_OK) ? pdPASS : pdFAIL;
 }
