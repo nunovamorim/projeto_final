@@ -1,39 +1,12 @@
 // Initialize Socket.IO connection
 const socket = io();
 
-// Chart configuration
-let telemetryChart;
-const chartConfig = {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [{
-            label: 'Temperature',
-            data: [],
-            borderColor: 'rgb(255, 99, 132)',
-            tension: 0.1
-        }, {
-            label: 'Power',
-            data: [],
-            borderColor: 'rgb(54, 162, 235)',
-            tension: 0.1
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-};
+// A inicialização do gráfico foi movida para graphs.js
+// Variáveis mantidas para compatibilidade com código existente
+let telemetryChart = null;
 
-// Initialize chart when document is ready
+// Initialize when document is ready
 document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('telemetryChart').getContext('2d');
-    telemetryChart = new Chart(ctx, chartConfig);
-
     // Setup command form handler
     document.getElementById('command-form').addEventListener('submit', handleCommand);
 });
@@ -48,8 +21,16 @@ socket.on('disconnect', () => {
 });
 
 socket.on('telemetry_update', (data) => {
-    updateTelemetryChart(data);
-    updateSystemStatus(data);
+    // Não precisamos mais chamar updateTelemetryChart aqui, pois agora usamos o graphs.js para isso
+    // mas podemos usar os dados para atualizar outros indicadores
+    
+    // Atualizar log de sistema
+    appendToLog(`Telemetria recebida: ${new Date().toLocaleTimeString()}`);
+    
+    // Atualizar status do sistema com os novos dados
+    if (window.updateSystemStatus && typeof window.updateSystemStatus === 'function') {
+        window.updateSystemStatus(data);
+    }
 });
 
 // UI update functions
@@ -64,44 +45,18 @@ function updateConnectionStatus(connected) {
     }
 }
 
+// Esta função é mantida apenas para compatibilidade, não usada mais
 function updateTelemetryChart(data) {
-    const timestamp = new Date().toLocaleTimeString();
-    
-    // Update chart data
-    telemetryChart.data.labels.push(timestamp);
-    telemetryChart.data.datasets[0].data.push(data.temperature);
-    telemetryChart.data.datasets[1].data.push(data.power);
-
-    // Keep last 20 data points
-    if (telemetryChart.data.labels.length > 20) {
-        telemetryChart.data.labels.shift();
-        telemetryChart.data.datasets.forEach(dataset => dataset.data.shift());
-    }
-
-    telemetryChart.update();
+    console.log('Telemetria recebida:', data);
+    // Os gráficos agora são atualizados pelo arquivo graphs.js
 }
 
+// Esta função foi movida para o arquivo graphs.js
 function updateSystemStatus(data) {
-    const statusDisplay = document.getElementById('status-display');
-    statusDisplay.innerHTML = `
-        <div class="col-md-3">
-            <h5>Temperature</h5>
-            <p>${data.temperature}°C</p>
-        </div>
-        <div class="col-md-3">
-            <h5>Power</h5>
-            <p>${data.power}W</p>
-        </div>
-        <div class="col-md-3">
-            <h5>ADCS Status</h5>
-            <p>${data.adcs_status}</p>
-        </div>
-        <div class="col-md-3">
-            <h5>Battery</h5>
-            <p>${data.battery_level}%</p>
-        </div>
-    `;
+    console.log('Atualizando status do sistema com dados:', data);
+    // Esta implementação é apenas um stub, a real está no arquivo graphs.js
 }
+
 
 function handleCommand(event) {
     event.preventDefault();
@@ -113,4 +68,61 @@ function handleCommand(event) {
         type: commandType,
         parameters: commandParams
     });
+    
+    appendToLog(`Comando ${commandType} enviado ao satélite`);
 }
+
+// Adicionar entradas ao log do sistema
+function appendToLog(message) {
+    const logDisplay = document.getElementById('log-display');
+    if (!logDisplay) return;
+    
+    const timestamp = new Date().toLocaleTimeString();
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    logEntry.innerHTML = `<span class="log-time">[${timestamp}]</span> ${message}`;
+    
+    logDisplay.appendChild(logEntry);
+    logDisplay.scrollTop = logDisplay.scrollHeight;
+    
+    // Limitar a 100 mensagens para evitar sobrecarga de memória
+    if (logDisplay.children.length > 100) {
+        logDisplay.removeChild(logDisplay.children[0]);
+    }
+}
+
+// Configurar o botão para limpar logs
+document.addEventListener('DOMContentLoaded', function() {
+    const clearLogBtn = document.getElementById('clear-log');
+    if (clearLogBtn) {
+        clearLogBtn.addEventListener('click', function() {
+            const logDisplay = document.getElementById('log-display');
+            if (logDisplay) {
+                logDisplay.innerHTML = '';
+                appendToLog('Log limpo');
+            }
+        });
+    }
+    
+    // Adicionar mensagem inicial ao log
+    appendToLog('Dashboard inicializado.');
+    
+    // Configurar handler para botão de injeção de falhas
+    const injectFaultBtn = document.getElementById('inject-fault');
+    if (injectFaultBtn) {
+        injectFaultBtn.addEventListener('click', function() {
+            const faultType = document.getElementById('fault-type').value;
+            const faultDuration = document.getElementById('fault-duration').value;
+            const faultProbability = document.getElementById('fault-probability').value;
+            
+            if (faultType !== 'NONE') {
+                appendToLog(`Injetando falha: ${faultType} (duração: ${faultDuration}ms, probabilidade: ${faultProbability}%)`);
+                socket.emit('inject_fault', {
+                    type: faultType,
+                    duration: parseInt(faultDuration),
+                    probability: parseInt(faultProbability)
+                });
+            }
+        });
+    }
+});

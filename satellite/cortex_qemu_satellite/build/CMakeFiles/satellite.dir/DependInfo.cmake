@@ -33,6 +33,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/istec/projeto_final/satellite/cortex_qemu_satellite/main.c" "CMakeFiles/satellite.dir/main.c.obj" "gcc" "CMakeFiles/satellite.dir/main.c.obj.d"
   "/home/istec/projeto_final/satellite/cortex_qemu_satellite/src/freertos_hooks.c" "CMakeFiles/satellite.dir/src/freertos_hooks.c.obj" "gcc" "CMakeFiles/satellite.dir/src/freertos_hooks.c.obj.d"
   "/home/istec/projeto_final/satellite/cortex_qemu_satellite/src/system_stm32f1xx.c" "CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj" "gcc" "CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj.d"
+  "/home/istec/projeto_final/satellite/cortex_qemu_satellite/src/utils.c" "CMakeFiles/satellite.dir/src/utils.c.obj" "gcc" "CMakeFiles/satellite.dir/src/utils.c.obj.d"
   "/home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/adcs_proc.c" "CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj" "gcc" "CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj.d"
   "/home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/main_so.c" "CMakeFiles/satellite.dir/tasks/main_so.c.obj" "gcc" "CMakeFiles/satellite.dir/tasks/main_so.c.obj.d"
   "/home/istec/projeto_final/satellite/cortex_qemu_satellite/tasks/tc_proc.c" "CMakeFiles/satellite.dir/tasks/tc_proc.c.obj" "gcc" "CMakeFiles/satellite.dir/tasks/tc_proc.c.obj.d"

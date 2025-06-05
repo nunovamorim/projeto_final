@@ -23,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/satellite.dir/src/freertos_hooks.c.obj.d"
   "CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj"
   "CMakeFiles/satellite.dir/src/system_stm32f1xx.c.obj.d"
+  "CMakeFiles/satellite.dir/src/utils.c.obj"
+  "CMakeFiles/satellite.dir/src/utils.c.obj.d"
   "CMakeFiles/satellite.dir/startup_stm32.s.obj"
   "CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj"
   "CMakeFiles/satellite.dir/tasks/adcs_proc.c.obj.d"

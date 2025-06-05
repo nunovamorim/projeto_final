@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2025-06-05T10:00:00",
+    "level": 85.2,
+    "voltage": 3.9,
+    "current": 0.15,
+    "temperature": 27.5
+  },
+  {
+    "timestamp": "2025-06-05T10:01:00",
+    "level": 85.5,
+    "voltage": 3.91,
+    "current": 0.18,
+    "temperature": 27.8
+  }
+]

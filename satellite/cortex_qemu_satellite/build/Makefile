@@ -430,6 +430,30 @@ src/system_stm32f1xx.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/satellite.dir/build.make CMakeFiles/satellite.dir/src/system_stm32f1xx.c.s
 .PHONY : src/system_stm32f1xx.c.s
 
+src/utils.obj: src/utils.c.obj
+.PHONY : src/utils.obj
+
+# target to build an object file
+src/utils.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/satellite.dir/build.make CMakeFiles/satellite.dir/src/utils.c.obj
+.PHONY : src/utils.c.obj
+
+src/utils.i: src/utils.c.i
+.PHONY : src/utils.i
+
+# target to preprocess a source file
+src/utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/satellite.dir/build.make CMakeFiles/satellite.dir/src/utils.c.i
+.PHONY : src/utils.c.i
+
+src/utils.s: src/utils.c.s
+.PHONY : src/utils.s
+
+# target to generate assembly for a file
+src/utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/satellite.dir/build.make CMakeFiles/satellite.dir/src/utils.c.s
+.PHONY : src/utils.c.s
+
 startup_stm32.obj: startup_stm32.s.obj
 .PHONY : startup_stm32.obj
 
@@ -580,6 +604,9 @@ help:
 	@echo "... src/system_stm32f1xx.obj"
 	@echo "... src/system_stm32f1xx.i"
 	@echo "... src/system_stm32f1xx.s"
+	@echo "... src/utils.obj"
+	@echo "... src/utils.i"
+	@echo "... src/utils.s"
 	@echo "... startup_stm32.obj"
 	@echo "... tasks/adcs_proc.obj"
 	@echo "... tasks/adcs_proc.i"

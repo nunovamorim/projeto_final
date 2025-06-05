@@ -1,0 +1,18 @@
+[
+  {
+    "timestamp": "2025-06-05T10:00:00",
+    "external": 45.2,
+    "internal": 24.5,
+    "battery": 27.5,
+    "solar_panels": 55.8,
+    "processor": 38.2
+  },
+  {
+    "timestamp": "2025-06-05T10:01:00",
+    "external": 45.5,
+    "internal": 24.8,
+    "battery": 27.8,
+    "solar_panels": 56.2,
+    "processor": 38.5
+  }
+]

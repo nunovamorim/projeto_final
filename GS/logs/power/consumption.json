@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2025-06-05T10:00:00",
+    "total_watts": 3.5,
+    "subsystems": {
+      "comm": 0.8,
+      "adcs": 1.2,
+      "payload": 0.9,
+      "thermal": 0.3,
+      "obc": 0.3
+    }
+  },
+  {
+    "timestamp": "2025-06-05T10:01:00",
+    "total_watts": 3.6,
+    "subsystems": {
+      "comm": 0.9,
+      "adcs": 1.2,
+      "payload": 0.9,
+      "thermal": 0.3,
+      "obc": 0.3
+    }
+  }
+]

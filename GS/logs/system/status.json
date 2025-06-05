@@ -1,0 +1,18 @@
+[
+  {
+    "timestamp": "2025-06-05T10:00:00",
+    "mode": "nominal",
+    "uptime": 3600,
+    "memory_usage": 67.5,
+    "cpu_load": 35.8,
+    "orbit_phase_deg": 120.5
+  },
+  {
+    "timestamp": "2025-06-05T10:01:00",
+    "mode": "nominal",
+    "uptime": 3660,
+    "memory_usage": 68.2,
+    "cpu_load": 36.5,
+    "orbit_phase_deg": 121.2
+  }
+]

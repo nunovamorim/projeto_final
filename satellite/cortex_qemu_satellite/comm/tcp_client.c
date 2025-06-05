@@ -42,8 +42,22 @@ TCPStatus xTCPSend(const void* data, size_t length)
         // Copy data to buffer
         memcpy(ucTCPBuffer, data, length);
         
-        // In a real implementation, this would send data over TCP
-        // For now, we'll just simulate success
+        // Output the data to the QEMU serial port with clear markers
+        // Usando um formato mais robusto para evitar problemas de buffer
+        printf("\n\n\n\n[SAT_TELEMETRY_BEGIN]\n");
+        
+        // Primeiro, envie o tamanho para ajudar no parsing
+        printf("LENGTH:%zu\n", length);
+        
+        // Agora, envie os dados em formato hexadecimal com separadores
+        for (size_t i = 0; i < length; i++) {
+            printf("%02x", ((uint8_t*)data)[i]);
+            if ((i + 1) % 16 == 0) printf("\n");
+        }
+        printf("\n[SAT_TELEMETRY_END]\n\n\n\n");
+        
+        // Flush stdout para garantir que todos os dados foram enviados
+        fflush(stdout);
         
         xSemaphoreGive(xTCPMutex);
         return TCP_OK;
